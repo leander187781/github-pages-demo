@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>珍荣生日祝福问卷</title>
+    <style>
+        :root {
+            --primary-color: #ff9ec3;
+            --secondary-color: #ffd166;
+            --accent-color: #ff5c8d;
+            --light-color: #fff5f7;
+            --dark-color: #333333;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans KR', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #fafafa;
+            color: var(--dark-color);
+            line-height: 1.6;
+            padding: 20px;
+            background-image: linear-gradient(to bottom, var(--light-color), #fff);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .cake-icon {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+        }
+        
+        .form-container {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        
+        input[type="text"], 
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input[type="text"]:focus, 
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 94, 141, 0.2);
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-item input {
+            margin-right: 8px;
+        }
+        
+        .required::after {
+            content: "*";
+            color: var(--accent-color);
+            margin-left: 4px;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(255, 94, 141, 0.3);
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 94, 141, 0.4);
+        }
+        
+        .photo-upload {
+            margin-top: 15px;
+            padding: 15px;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .photo-upload:hover {
+            border-color: var(--primary-color);
+            background-color: var(--light-color);
+        }
+        
+        .language-toggle {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .language-btn {
+            background: none;
+            border: none;
+            color: #777;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+        }
+        
+        .language-btn.active {
+            color: var(--accent-color);
+            font-weight: bold;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="cake-icon">🎂</div>
+            <h1>珍荣生日祝福问卷</h1>
+            <p class="subtitle">分享你对珍荣的祝福与期待</p>
+        </header>
+        
+        <div class="language-toggle">
+            <button class="language-btn active" data-lang="cn">中文</button>
+            <button class="language-btn" data-lang="kr">한국어</button>
+            <button class="language-btn" data-lang="en">English</button>
+        </div>
+        
+        <div class="form-container">
+            <form id="birthday-form">
+                <div class="form-group">
+                    <label for="name" class="required">名字</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location" class="required">来自/现居</label>
+                    <input type="text" id="location" name="location" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="love-date" class="required">爱上珍荣的时间</label>
+                    <input type="text" id="love-date" name="love-date" placeholder="例如: 2020年5月" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="love-reason" class="required">爱上珍荣的契机/原因</label>
+                    <textarea id="love-reason" name="love-reason" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="favorite-work" class="required">你最喜欢的珍荣的作品(舞台/歌曲/角色/电视剧/电影)</label>
+                    <textarea id="favorite-work" name="favorite-work" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="birthday-wishes" class="required">请为珍荣的生日许愿吧！</label>
+                    <textarea id="birthday-wishes" name="birthday-wishes" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="required">珍荣未来你最期待的作品/活动是？</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="shining" name="anticipated-works" value="shining">
+                            <label for="shining">《Shining》</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="hundred-days" name="anticipated-works" value="hundred-days">
+                            <label for="hundred-days">《百日的谎言》</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="solo-comeback" name="anticipated-works" value="solo-comeback">
+                            <label for="solo-comeback">Solo歌手回归</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="new-movie" name="anticipated-works" value="new-movie">
+                            <label for="new-movie">新电影</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="fan-meeting" name="anticipated-works" value="fan-meeting">
+                            <label for="fan-meeting">Fan Meeting</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="other" name="anticipated-works" value="other">
+                            <label for="other">其他</label>
+                        </div>
+                    </div>
+                    <input type="text" id="other-text" name="other-text" placeholder="请补充你的答案" style="display: none; margin-top: 10px;">
+                </div>
+                
+                <div class="form-group">
+                    <label for="share-story">所有你还想和珍荣分享的故事和心情</label>
+                    <textarea id="share-story" name="share-story"></textarea>
+                    
+                    <div class="photo-upload" id="photo-upload">
+                        <p>点击上传一张照片 (可选)</p>
+                        <input type="file" id="photo" name="photo" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-submit">提交祝福</button>
+            </form>
+        </div>
+        
+        <footer>
+            <p>感谢您参与珍荣生日祝福活动！</p>
+        </footer>
+    </div>
+
+    <script>
+        // 多语言切换功能
+        document.querySelectorAll('.language-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.language-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                // 实际应用中这里应该实现完整的语言切换逻辑
+                alert('语言切换功能: ' + this.getAttribute('data-lang'));
+            });
+        });
+        
+        // 显示/隐藏"其他"文本框
+        document.getElementById('other').addEventListener('change', function() {
+            document.getElementById('other-text').style.display = this.checked ? 'block' : 'none';
+        });
+        
+        // 照片上传区域点击触发文件选择
+        document.getElementById('photo-upload').addEventListener('click', function() {
+            document.getElementById('photo').click();
+        });
+        
+        // 表单提交
+        document.getElementById('birthday-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('感谢您的祝福！问卷已提交。');
+            // 实际应用中这里应该实现表单数据的提交
+        });
+    </script>
+</body>
+</html>
